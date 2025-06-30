@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pregnancyCare</title>
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./custom_css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="dist/css/style.css"> -->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff7eb3;
+            --primary-color-hover: #ff5c9e;
+            --secondary-color: #7c5295;
+            --text-color: #333333;
+            --text-color-secondary: #666666;
+            --bg-color-light: #ffffff;
+            --bg-color-dark: #2c2c34;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+        }
+
+        .is-boxed {
+            background: #f8f9fa;
+        }
+
+        /* Button styling with rounded corners */
+        .button {
+            border-radius: 30px;
+            padding: 12px 28px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: var(--primary-color-hover);
+            border-color: var(--primary-color-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 126, 179, 0.3);
+        }
+
+        .hero {
+            padding: 100px 0 60px;
+        }
+
+        .hero-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero-paragraph {
+            font-size: 1.2rem;
+            color: var(--text-color-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Increased image size */
+        .pregnant-woman-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Features section with improved spacing */
+        .features.section {
+            padding: 100px 0;
+        }
+
+        .features-header {
+            margin-bottom: 70px;
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+        }
+
+        .section-paragraph {
+            font-size: 1.1rem;
+            color: var(--text-color-secondary);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .feature {
+            margin-bottom: 60px;
+            padding: 0 20px;
+        }
+
+        .feature-inner {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-inner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            background: rgba(255, 126, 179, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .feature-icon img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .feature-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color-secondary);
+        }
+
+        /* CTA section */
+        .cta.section {
+            padding: 80px 0 100px;
+        }
+
+        .cta-inner {
+            background: linear-gradient(135deg, #ff7eb3 0%, #7c5295 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 70px 40px;
+            box-shadow: 0 15px 35px rgba(124, 82, 149, 0.2);
+        }
+
+        .cta-inner .section-title {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-inner .section-paragraph {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 35px;
+        }
+
+        .cta-inner .button-primary {
+            background: white;
+            color: var(--secondary-color);
+            border: none;
+            padding: 14px 32px;
+            font-weight: 600;
+        }
+
+        .cta-inner .button-primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Light toggle styling */
+        .lights-toggle {
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .lights-toggle label {
+            margin-left: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Dark mode styles */
+        .is-boxed.dark-mode {
+            background: var(--bg-color-dark);
+            color: white;
+        }
+
+        .dark-mode .feature-inner {
+            background-color: #3a3a45;
+        }
+
+        .dark-mode .hero-title,
+        .dark-mode .section-title,
+        .dark-mode .feature-title {
+            color: white;
+        }
+
+        .dark-mode .hero-paragraph,
+        .dark-mode .feature-content p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0 text-sm font-bold text-purple-600 header-logo">
+                            <a href="#">
+                                <img class="header-logo-image asset-light" src="dist/images/logo-light.svg" alt="Logo">
+                                <img class="header-logo-image asset-dark" src="dist/images/logo-dark.svg" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+                        <div class="row align-items-center">
+                            <div class="col-lg-5 hero-copy">
+                                <h1 class="hero-title">Early Pregnancy Detection System</h1>
+                                <p class="hero-paragraph">A reliable and accurate tool for healthcare professionals to detect early signs of pregnancy and provide timely care to expectant mothers.</p>
+                                <div class="hero-cta">
+                                    <a class="button button-primary" href="create/create.html">New Patient Assessment</a>
+                                    <div class="lights-toggle">
+                                        <input id="lights-toggle" type="checkbox" name="lights-toggle" class="switch" checked="checked">
+                                        <label for="lights-toggle"><span>Turn me <span class="label-text">dark</span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 text-center text-lg-right mt-5 mt-lg-0">
+                                <img class="pregnant-woman-image" src="./dist/images/pregNant1.png" alt="Pregnant woman">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features section">
+                <div class="container">
+                    <div class="features-inner section-inner">
+                        <div class="features-header text-center">
+                            <div class="container-sm">
+                                <h2 class="section-title">Key Features</h2>
+                                <p class="section-paragraph">Our early pregnancy detection system offers comprehensive tools to help healthcare providers deliver the best care possible.</p>
+                            </div>
+                        </div>
+                        <div class="features-wrap">
+                            <div class="row">
+                                <div class="col-md-4 feature is-revealing">
+                                    <div class="feature-inner">
+                                        <div class="feature-icon">
+                                            <img class="asset-light" src="dist/images/feature-01-light.svg" alt="Feature 01">
+                                            <img class="asset-dark" src="dist/images/feature-01-dark.svg" alt="Feature 01">
+                                        </div>
+                                        <div class="feature-content">
+                                            <h3 class="feature-title">Early Detection</h3>
+                                            <p>Advanced algorithms to detect pregnancy signs as early as possible, helping healthcare providers offer timely care and guidance.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 feature is-revealing">
+                                    <div class="feature-inner">
+                                        <div class="feature-icon">
+                                            <img class="asset-light" src="dist/images/feature-02-light.svg" alt="Feature 02">
+                                            <img class="asset-dark" src="dist/images/feature-02-dark.svg" alt="Feature 02">
+                                        </div>
+                                        <div class="feature-content">
+                                            <h3 class="feature-title">Patient History</h3>
+                                            <p>Comprehensive patient history tracking with secure data storage, allowing for better continuity of care throughout pregnancy.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 feature is-revealing">
+                                    <div class="feature-inner">
+                                        <div class="feature-icon">
+                                            <img class="asset-light" src="dist/images/feature-03-light.svg" alt="Feature 03">
+                                            <img class="asset-dark" src="dist/images/feature-03-dark.svg" alt="Feature 03">
+                                        </div>
+                                        <div class="feature-content">
+                                            <h3 class="feature-title">Risk Assessment</h3>
+                                            <p>Intelligent risk assessment tools that help identify potential complications early, enabling proactive management and care.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta section">
+                <div class="container-sm">
+                    <div class="cta-inner section-inner">
+                        <div class="cta-header text-center">
+                            <h2 class="section-title">Start Using Our System Today</h2>
+                            <p class="section-paragraph">Join healthcare providers worldwide who trust our early pregnancy detection system to provide the best care for expectant mothers.</p>
+                            <div class="cta-cta">
+                                <a class="button button-primary" href="create/create.html">Begin Assessment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+    <script>
+        // Toggle dark mode
+        const lightToggle = document.getElementById('lights-toggle');
+        const body = document.querySelector('body');
+        
+        lightToggle.addEventListener('change', function() {
+            if(this.checked) {
+                body.classList.remove('dark-mode');
+            } else {
+                body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

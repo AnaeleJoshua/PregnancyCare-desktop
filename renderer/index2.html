@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Early Pregnancy Detection System</title>
+
+  <!-- Tailwind CSS -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontSize: {
+            'xxs': '0.65rem',
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        @apply antialiased;
+      }
+    }
+
+    @layer components {
+      .btn-primary {
+        @apply bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center text-sm lg:text-base;
+      }
+
+      .btn-secondary {
+        @apply bg-white text-gray-700 border border-gray-200 hover:border-gray-300 font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-lg transition-all duration-200 hover:shadow-md inline-flex items-center text-sm lg:text-base;
+      }
+
+      .btn-outline {
+        @apply border-2 border-white text-white font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-xl hover:bg-white hover:text-gray-900 transition-all duration-300 inline-flex items-center text-sm lg:text-base;
+      }
+
+      .feature-card {
+        @apply bg-white rounded-xl p-4 lg:p-6 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 h-full;
+      }
+
+      .gradient-text {
+        @apply bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent;
+      }
+
+      .section-padding {
+        @apply py-8 lg:py-12 xl:py-16;
+      }
+
+      .container-custom {
+        @apply max-w-screen-lg mx-auto px-4;
+      }
+
+      .nav-link {
+        @apply text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200 hidden md:block;
+      }
+
+      .stat-card {
+        @apply text-center p-4 lg:p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200;
+      }
+
+      .icon-wrapper {
+        @apply w-10 h-10 lg:w-12 lg:h-12 rounded-2xl flex items-center justify-center mb-3 lg:mb-4 transition-transform duration-300 group-hover:scale-110;
+      }
+
+      .floating-element {
+        @apply absolute rounded-full opacity-20 animate-pulse;
+      }
+
+      .menu-dropdown {
+        @apply absolute hidden group-hover:block bg-white text-gray-800 shadow-lg mt-2 p-2 space-y-1 rounded-md z-50 min-w-max;
+      }
+
+      .menu-item {
+        @apply hover:bg-gray-100 w-full text-left px-3 py-2 rounded text-sm transition-colors duration-150;
+      }
+
+      .submenu {
+        @apply absolute hidden group-hover:block left-full top-0 ml-2 bg-white shadow-lg p-2 space-y-1 rounded-md z-50 min-w-max;
+      }
+    }
+
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .bg-mesh {
+        background-image: radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.2) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2%, transparent 0%);
+        background-size: 100px 100px;
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+
+      .animate-slide-up {
+        animation: slideUp 0.8s ease-out forwards;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dark {
+      @apply bg-gray-900 text-white;
+    }
+
+    .dark .feature-card {
+      @apply bg-gray-800 border-gray-700;
+    }
+
+    .dark .btn-secondary {
+      @apply bg-gray-800 text-gray-200 border-gray-700 hover:border-gray-600;
+    }
+
+    .dark .nav-link {
+      @apply text-gray-300 hover:text-white;
+    }
+
+    .dark .stat-card {
+      @apply bg-gray-800 hover:bg-gray-700;
+    }
+
+    .dark .menu-dropdown {
+      @apply bg-gray-800 text-gray-200;
+    }
+
+    .dark .menu-item {
+      @apply hover:bg-gray-700;
+    }
+
+    .dark .submenu {
+      @apply bg-gray-800 text-gray-200;
+    }
+
+    .mobile-menu {
+      @apply fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden;
+    }
+
+    .mobile-menu-content {
+      @apply bg-white dark:bg-gray-800 w-64 h-full shadow-xl transform transition-transform duration-300 ease-in-out;
+    }
+
+    .mobile-menu-hidden {
+      transform: translateX(-100%);
+    }
+
+    .mobile-menu-visible {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300">
+  <!-- The rest of your HTML structure remains unchanged (navbars, sections, hero, features, CTA, footer, etc.) -->
+  <!-- Only styles, spacing, and font sizes were improved to better suit a desktop layout. -->
+  <!-- Full markup was preserved; just formatted and visually adjusted. -->
+  <!-- For space reasons, we are omitting the content as it is identical to the previous version apart from styling. -->
+   <!-- Main Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-30 transition-all duration-300 mt-10" id="navbar">
+        <div class="container-custom">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-4 h-4 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-lg lg:text-xl font-bold gradient-text">PregnancyCare Pro</span>
+                </div>
+                
+                <div class="flex items-center space-x-4 lg:space-x-6">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200">
+                        <svg id="sun-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moon-icon" class="w-5 h-5 text-gray-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu mobile-menu-hidden">
+        <div class="mobile-menu-content mobile-menu-hidden" id="mobile-menu-content">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <span class="text-lg font-bold gradient-text">Menu</span>
+                    <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-4 space-y-4">
+                <a href="#features" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Features</a>
+                <a href="#about" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">About</a>
+                <a href="#contact" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 lg:pt-40 lg:pb-20 bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-mesh opacity-30"></div>
+        <div class="floating-element top-20 left-4 lg:left-10 w-48 h-48 lg:w-72 lg:h-72 bg-gradient-to-r from-rose-300 to-pink-300 animate-pulse-slow"></div>
+        <div class="floating-element bottom-20 right-4 lg:right-10 w-48 h-48 lg:w-72 lg:h-72 bg-gradient-to-r from-purple-300 to-pink-300 animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <div class="container-custom relative">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <div class="space-y-6 lg:space-y-8 animate-fade-in order-2 lg:order-1">
+                    <div class="space-y-4 lg:space-y-6">
+                        <div class="inline-flex items-center px-3 py-2 lg:px-4 lg:py-2 bg-white/60 backdrop-blur-sm rounded-full border border-white/20">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 lg:mr-3 animate-pulse"></span>
+                            <span class="text-xs lg:text-sm font-medium text-gray-700">Trusted by 500+ Healthcare Providers</span>
+                        </div>
+                        
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight text-shadow">
+                            <span class="gradient-text">Early Pregnancy</span><br>
+                            <span class="text-gray-900">Detection System</span>
+                        </h1>
+                        
+                        <p class="text-base lg:text-xl xl:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+                            Advanced AI-powered diagnostic tools for healthcare professionals to provide 
+                            <span class="font-semibold text-gray-800">accurate, early pregnancy detection</span> 
+                            and comprehensive maternal care.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 lg:gap-4">
+                        <button class="btn-primary group justify-center sm:justify-start">
+                            Start New Assessment
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-secondary group justify-center sm:justify-start">
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a2.5 2.5 0 110 5H9V10z"></path>
+                            </svg>
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4 lg:gap-8 pt-6 lg:pt-8 border-t border-gray-200">
+                        <div class="text-center">
+                            <div class="text-xl lg:text-3xl font-bold gradient-text">99.2%</div>
+                            <div class="text-xs lg:text-sm text-gray-600 font-medium">Accuracy Rate</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xl lg:text-3xl font-bold gradient-text">24/7</div>
+                            <div class="text-xs lg:text-sm text-gray-600 font-medium">Support Available</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xl lg:text-3xl font-bold gradient-text">500+</div>
+                            <div class="text-xs lg:text-sm text-gray-600 font-medium">Healthcare Partners</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative animate-slide-up order-1 lg:order-2">
+                    <div class="relative z-10 animate-float">
+                        <img src="/placeholder.svg?height=600&width=500" alt="Healthcare Professional" 
+                             class="w-full max-w-sm lg:max-w-lg mx-auto rounded-3xl shadow-2xl">
+                    </div>
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 lg:-top-6 lg:-right-6 w-16 h-16 lg:w-24 lg:h-24 bg-gradient-to-r from-rose-400 to-pink-500 rounded-2xl opacity-20 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 w-20 h-20 lg:w-32 lg:h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse-slow" style="animation-delay: 1s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-padding bg-white">
+        <div class="container-custom">
+            <div class="text-center mb-12 lg:mb-20">
+                <div class="inline-flex items-center px-3 py-2 lg:px-4 lg:py-2 bg-rose-100 rounded-full mb-4 lg:mb-6">
+                    <span class="text-xs lg:text-sm font-semibold text-rose-700">Advanced Healthcare Technology</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6">
+                    <span class="gradient-text">Comprehensive</span> Detection Suite
+                </h2>
+                <p class="text-base lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Our state-of-the-art system combines artificial intelligence with medical expertise 
+                    to deliver unparalleled accuracy in early pregnancy detection and maternal health monitoring.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-16">
+                <!-- Feature 1 -->
+                <div class="feature-card group">
+                    <div class="icon-wrapper bg-gradient-to-r from-rose-500 to-pink-600">
+                        <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 lg:mb-4 text-gray-900">AI-Powered Early Detection</h3>
+                    <p class="text-sm lg:text-base text-gray-600 leading-relaxed mb-4 lg:mb-6">
+                        Advanced machine learning algorithms analyze multiple biomarkers to detect pregnancy 
+                        signs up to 5 days earlier than traditional methods with 99.2% accuracy.
+                    </p>
+                    <div class="flex items-center text-rose-600 font-semibold group-hover:text-rose-700 transition-colors cursor-pointer text-sm lg:text-base">
+                        <span>Learn more</span>
+                        <svg class="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card group">
+                    <div class="icon-wrapper bg-gradient-to-r from-purple-500 to-indigo-600">
+                        <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 lg:mb-4 text-gray-900">Comprehensive Patient Records</h3>
+                    <p class="text-sm lg:text-base text-gray-600 leading-relaxed mb-4 lg:mb-6">
+                        Secure, HIPAA-compliant digital health records with automated tracking, 
+                        appointment scheduling, and seamless integration with existing EMR systems.
+                    </p>
+                    <div class="flex items-center text-rose-600 font-semibold group-hover:text-rose-700 transition-colors cursor-pointer text-sm lg:text-base">
+                        <span>Learn more</span>
+                        <svg class="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card group md:col-span-2 lg:col-span-1">
+                    <div class="icon-wrapper bg-gradient-to-r from-emerald-500 to-teal-600">
+                        <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 lg:mb-4 text-gray-900">Intelligent Risk Assessment</h3>
+                    <p class="text-sm lg:text-base text-gray-600 leading-relaxed mb-4 lg:mb-6">
+                        Predictive analytics identify potential complications early, enabling proactive 
+                        intervention and personalized care plans for optimal maternal and fetal health.
+                    </p>
+                    <div class="flex items-center text-rose-600 font-semibold group-hover:text-rose-700 transition-colors cursor-pointer text-sm lg:text-base">
+                        <span>Learn more</span>
+                        <svg class="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Features Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                <div class="stat-card">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-rose-100 rounded-lg flex items-center justify-center mx-auto mb-3 lg:mb-4">
+                        <svg class="w-5 h-5 lg:w-6 lg:h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1 lg:mb-2 text-sm lg:text-base">HIPAA Compliant</h4>
+                    <p class="text-xs lg:text-sm text-gray-600">Enterprise-grade security</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3 lg:mb-4">
+                        <svg class="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1 lg:mb-2 text-sm lg:text-base">Real-time Results</h4>
+                    <p class="text-xs lg:text-sm text-gray-600">Instant analysis & reporting</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-3 lg:mb-4">
+                        <svg class="w-5 h-5 lg:w-6 lg:h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m5 0h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-5 4h6m-6 4h6m-7-7V4a1 1 0 011-1h8a1 1 0 011 1v3M9 7v10a1 1 0 001 1h4a1 1 0 001-1V7a1 1 0 00-1-1H10a1 1 0 00-1 1z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1 lg:mb-2 text-sm lg:text-base">EMR Integration</h4>
+                    <p class="text-xs lg:text-sm text-gray-600">Seamless workflow integration</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3 lg:mb-4">
+                        <svg class="w-5 h-5 lg:w-6 lg:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1 lg:mb-2 text-sm lg:text-base">24/7 Support</h4>
+                    <p class="text-xs lg:text-sm text-gray-600">Expert technical assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-gradient-to-r from-rose-600 via-pink-600 to-purple-700 relative overflow-hidden">
+        <div class="absolute inset-0 bg-mesh opacity-20"></div>
+        <div class="container-custom relative">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <div class="space-y-6 lg:space-y-8">
+                    <div class="inline-flex items-center px-3 py-2 lg:px-4 lg:py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+                        <span class="text-xs lg:text-sm font-medium">Join 500+ Healthcare Providers</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                        Transform Your Practice with 
+                        <span class="text-yellow-300">Advanced Detection</span>
+                    </h2>
+                    
+                    <p class="text-base lg:text-xl xl:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+                        Experience the future of maternal healthcare with our AI-powered early pregnancy detection system. 
+                        Start providing better care today.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center items-center">
+                        <button class="bg-white text-gray-900 font-semibold py-3 px-6 lg:py-4 lg:px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl group inline-flex items-center text-sm lg:text-base">
+                            Start Free Trial
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-outline">
+                            Schedule Demo
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 lg:space-x-8 pt-6 lg:pt-8 opacity-80">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-xs lg:text-sm">No setup fees</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-xs lg:text-sm">30-day free trial</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-xs lg:text-sm">Cancel anytime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 lg:py-16">
+        <div class="container-custom">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="space-y-4 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-4 h-4 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-lg lg:text-xl font-bold">PregnancyCare Pro</span>
+                    </div>
+                    <p class="text-sm lg:text-base text-gray-400 leading-relaxed">
+                        Advanced AI-powered pregnancy detection system trusted by healthcare professionals worldwide.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-3 lg:mb-4 text-sm lg:text-base">Product</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm lg:text-base">
+                        <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-3 lg:mb-4 text-sm lg:text-base">Company</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm lg:text-base">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-3 lg:mb-4 text-sm lg:text-base">Support</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm lg:text-base">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">HIPAA Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 lg:mt-12 pt-6 lg:pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <p class="text-gray-400 text-xs lg:text-sm text-center md:text-left">
+                    © 2024 PregnancyCare Pro. All rights reserved.
+                </p>
+                <div class="flex space-x-4 lg:space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            sunIcon.classList.toggle('hidden');
+            moonIcon.classList.toggle('hidden');
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        function openMobileMenu() {
+            mobileMenu.classList.remove('mobile-menu-hidden');
+            mobileMenuContent.classList.remove('mobile-menu-hidden');
+            mobileMenuContent.classList.add('mobile-menu-visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenuContent.classList.remove('mobile-menu-visible');
+            mobileMenuContent.classList.add('mobile-menu-hidden');
+            setTimeout(() => {
+                mobileMenu.classList.add('mobile-menu-hidden');
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .stat-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Placeholder functions for menu actions
+        function openWindow(type) {
+            console.log(`Opening ${type} window`);
+            // Add your window opening logic here
+        }
+
+        function handleAppClose() {
+            console.log('Closing application');
+            // Add your app closing logic here
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        console.log('Early Pregnancy Detection System loaded successfully!');
+    </script>
+</body>
+</html>

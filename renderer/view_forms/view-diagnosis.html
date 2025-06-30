@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View diagnosis</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container my-5 w-50">
+    <div class="container2">
+      <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">View</span>diagnosis</h1>
+    <p class=" d-flex justify-content-center">Click the button below to view the patient's diagnosis with the inputed card number</p>
+    <form>
+      <div class="form-content d-flex justify-content-center">
+        <div class="mb-3">
+          <input type="number" placeholder="Patient's card number" class="form-control" name="patientId" id="patientId" required>
+        </div>
+  
+        <div class="sub-button px-1">
+          <button type="submit" class="btn btn-primary" onclick="getDiagnosis(event)">View</button>
+        </div> 
+      </div>
+      
+    </form>
+
+    </div>
+    
+      
+  </div>
+  <script src="../custom_js/main.js"></script>
+
+
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

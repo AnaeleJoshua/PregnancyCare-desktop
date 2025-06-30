@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="viewAllPatients(event)">click</button>
+  
+  <script>
+  let redirect = (path)=>{
+  window.open(path, "_blank")
+}
+const viewAllPatients = (event)=>{
+  event.preventDefault()
+ fetch("http://localhost:3000/api/v1/patient/all")
+ .then(res=>res.json())
+ .then(data=>{
+  let realData = data.data
+  console.log(realData)
+
+   localStorage.setItem("fetchedData", JSON.stringify(realData))
+   redirect("view/allpatients.html");
+ })
+ .catch(error=>console.error("error occured while fetching data: ", error))
+}
+
+    
+  </script>
+     
+  
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create File</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="container my-5 w-50">
+    <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Patient's</span>form</h1>
+
+<form id="createForm">
+  <div class="mb-3">
+    <label for="fname" class="form-label">First name</label>
+    <input type="text" placeholder="Patient's first name" class="form-control" name="firstName" required>
+  </div>
+  <div class="mb-3">
+    <label for="lname" class="form-label">last name</label>
+    <input type="text" placeholder="Patient's last name" class="form-control" name="lastName" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" placeholder="Enter patient's address" class="form-control" name="address" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="age" class="form-label">age</label>
+    <input type="number" placeholder="Enter patient's age" class="form-control" name="age" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="sex" class="form-label">sex</label>
+    <select class="form-select" name="sex" required>
+      <option selected disabled value="">select...</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+  </div>
+
+  <div class="sub-button d-flex justify-content-center">
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+  </div>
+
+
+</form>
+      
+  </div>
+  <script>
+
+    // create patient
+ let redirect = (path)=>{
+  window.open(path, "_blank")
+}
+const createPatientForm = document.querySelector("#createForm")
+createPatientForm.addEventListener("submit", (event)=>{
+  event.preventDefault();
+
+  const formData = new FormData(createPatientForm);
+
+  const jsObject = {}
+  for (const [key,value] of formData.entries()){
+    jsObject[key] = value
+  }
+  const jsonString = JSON.stringify(jsObject)
+  console.log(jsonString)
+  //send form data to server
+  fetch("http://localhost:3000/api/v1/patient/newPatient", {
+    method: "POST",
+    headers:{
+      'Content-Type': "application/json"
+    },
+    body: jsonString
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+    localStorage.setItem("fetchedData", JSON.stringify(data))
+    redirect("../view/createPatientView.html");
+  })
+  .catch(error=>console.error("error occured while fetching data: ", error))
+
+})
+  </script>
+
+  
+
+   
+
+  
+  <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

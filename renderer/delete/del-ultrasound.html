@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete ultrasound</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container my-5 w-50">
+    <div class="container2">
+      <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Delete</span>ultrasound</h1>
+    <p class=" d-flex justify-content-center">Click the button below to Delete the ultrasound data with the inputed card number</p>
+    <form id="deleteUltrasound">
+      <div class="form-content d-flex justify-content-center">
+        <div class="mb-3">
+          <input type="number" placeholder="Patient's card number" class="form-control" name="patientId" id="patientId" required>
+        </div>
+  
+        <div class="sub-button px-1">
+          <button type="submit" class="btn btn-primary">Delete</button>
+        </div> 
+      </div>
+      
+    </form>
+
+    </div>
+    
+      
+  </div>
+
+  <script>
+    // Delete Ultrasound
+const deleteUltrasound = document.querySelector("#deleteUltrasound")
+deleteUltrasound.addEventListener("submit", (event)=>{
+ event.preventDefault();
+ let cardNumber = document.querySelector("#patientId").value;
+let apiUrl = `http://localhost:3000/api/v1/patient/ultrasound/delete/${cardNumber}`
+
+ 
+
+
+ const formData = new FormData(deleteUltrasound);
+
+ const jsObject = {}
+ for (const [key,value] of formData.entries()){
+   jsObject[key] = value
+ }
+ const jsonString = JSON.stringify(jsObject)
+ console.log(jsonString)
+
+ //send form data to server
+ fetch(apiUrl, {
+   method: "DELETE",
+   headers:{
+     'Content-Type': "application/json"
+   },
+   body: jsonString
+ })
+ .then(res=>res.json())
+ .then(data=>{
+   console.log(data)
+   if(data.error === "unauthorized"){
+    alert(data.message)
+   } else if(data.status === "unauthorized"){
+     alert(data.message) 
+   }else{
+    alert(data.data)
+   }
+   
+ })
+ .catch(error=>console.error("error occured while fetching data: ", error))
+
+})
+ </script>
+
+
+
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Report</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container my-5 w-50">
+    <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Generate</span>Report</h1>
+    <form>
+      <div class="mb-3">
+        <label for="patientId" class="form-label">card number</label>
+        <input type="number" placeholder="Patient's card number" class="form-control" id="patientId" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="reportType" class="form-label">report type</label>
+        <select class="form-select" name="report" id="reportType" required>
+          <option selected disabled value="">select...</option>
+          <option value="fa">Foetal Age</option>
+          <option value="fw">Foetal Weight</option>
+          <option value="cd">Conception Date</option>
+          <option value="preg">Pregnancy</option>
+          <option value="ul">ultrasound</option>
+          <option value="del">Delivery date</option>
+        </select>
+      </div>
+
+      <div class="sub-button d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary w-100" onclick="getReport(event)">Generate</button>
+      </div>
+
+      <!-- <div class="home-message d-flex justify-content-center py-2">
+        <a href="index.html">Return to home</a>
+      </div> -->
+      
+    </form>
+  </div>
+  <script src="../custom_js/main.js"></script>
+
+    <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

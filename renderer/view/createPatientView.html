@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient created</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container py-5">
+    
+        <h6 class="d-flex justify-content-center text-primary text-success" style="font-style: italic;">Patient's file successfully created!</h6>
+     <div class="d-flex justify-content-center">
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-primary">
+						<th scope="col">Card/N</th>          
+            <th scope="col">First Name</th>
+						<th scope="col">Last Name</th>
+						<th scope="col">Sex</th>          
+          </tr>
+        </thead>
+        <tbody class="table-body">
+
+
+          
+          
+        </tbody>
+      
+      </table>
+
+
+
+  <script>
+
+      const fetchedData = localStorage.getItem("fetchedData");
+			const apiData = JSON.parse(fetchedData);
+      console.log(apiData)
+
+			const tableBody = document.querySelector(".table-body");
+			const newRow = document.createElement("tr");
+
+			newRow.innerHTML = `
+      <td>${apiData.data.patientId}</td>
+      <td>${apiData.data.firstName}</td>
+			<td>${apiData.data.lastName}</td>
+			<td>${apiData.data.sex}</td>
+			`;
+
+			tableBody.appendChild(newRow)
+
+  </script>
+  
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

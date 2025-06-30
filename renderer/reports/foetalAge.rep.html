@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foetal Age</title>
+  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../custom_css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container py-5">
+    
+        <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Foetal Age</span>report</h1>
+     <div class="d-flex justify-content-center">
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">Parameter</th>
+            <th scope="col">Value</th>
+            
+
+            
+          </tr>
+        </thead>
+        <tbody class="table-body">
+
+
+          
+          
+        </tbody>
+      
+      </table>
+
+
+
+  <script>
+
+      const fetchedData = localStorage.getItem("fetchedData");
+			const apiData = JSON.parse(fetchedData);
+
+			const tableBody = document.querySelector(".table-body");
+      
+      const row1 = document.createElement("tr");
+      row1.innerHTML = `
+      <td>Head Circumference (m)</td>
+      <td>${apiData.data.headCircumference}</td>
+      `;
+      tableBody.appendChild(row1);
+
+      const row2 = document.createElement("tr");
+      row2.innerHTML = `
+      <td>Femur Length (m)</td>
+      <td>${apiData.data.femurLength}</td>
+      `;
+      tableBody.appendChild(row2);
+
+      const row3 = document.createElement("tr");
+      row3.innerHTML = `
+      <td>Abdominal Circumference (m)</td>
+      <td>${apiData.data.abdominalCircumference}</td>
+      `;
+      tableBody.appendChild(row3);
+
+      const row4 = document.createElement("tr");
+      row4.innerHTML = `
+      <td>Biparietal Diameter (m)</td>
+      <td>${apiData.data.biparietalDiameter}</td>
+      `;
+      tableBody.appendChild(row4);
+
+      const row5 = document.createElement("tr");
+      row5.innerHTML = `
+      <td>Date of Ultrasound</td>
+      <td>${apiData.data.dateOfUltrasound}</td>
+      `;
+      tableBody.appendChild(row5);
+
+      const row6 = document.createElement("tr");
+      row6.innerHTML = `
+      <td>Foetal Weight (g)</td>
+      <td>${apiData.data.foetal_weight}</td>
+      `;
+      tableBody.appendChild(row6);
+
+      const row7 = document.createElement("tr");
+      row7.innerHTML = `
+      <td>Foetal Age (week(s))</td>
+      <td>${apiData.data.foetal_age}</td>
+      `;
+      tableBody.appendChild(row7);
+
+  </script>
+  
+  <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
