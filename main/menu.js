@@ -1,75 +1,17 @@
 const { Menu, shell, app } = require('electron');
 const isMac = process.platform === 'darwin';
-
-// Import your custom window functions
-// Added try-catch around imports to catch potential module loading issues
-let patientWindows = {};
-let diagnosticWindows = {};
-let ultrasoundWindows = {};
-let reportWindows = {};
-
-try {
-  patientWindows = require('./windows/patientWindows');
-  diagnosticWindows = require('./windows/diagnosticWindows');
-  ultrasoundWindows = require('./windows/ultrasoundWindows');
-  reportWindows = require('./windows/reportWindows');
-} catch (importError) {
-  console.error("🚨 Error loading window modules:", importError.message);
-  // Assign empty objects to prevent undefined references if import fails
-  patientWindows = {};
-  diagnosticWindows = {};
-  ultrasoundWindows = {};
-  reportWindows = {};
-}
-
-// Destructure functions safely after potential import errors
-const {
-  createPatientsWindow,
-  createUpdatePatientWindow,
-  createDelPatientWindow,
-  createViewPatientWindow,
-  createViewAllPatientWindow
-} = patientWindows;
-
-const {
-  createDiagnosisWindow,
-  updateDiagnosisWindow,
-  deleteDiagnosisWindow,
-  createViewDiagnosisWindow
-} = diagnosticWindows;
-
-const {
-  createUltrasoundWindow,
-  updateUltrasoundWindow,
-  deleteUltrasoundWindow,
-  createViewUltrasoundWindow
-} = ultrasoundWindows;
-
-const { createReportWindow } = reportWindows;
+const { loadView } = require('./util');
 
 
-// Helper function to safely assign click handlers
-// This prevents 'TypeError: Invalid menu' if a function is undefined
-const safeClick = (fn, name) => {
-  if (typeof fn === 'function') {
-    return fn;
-  } else {
-    console.warn(`🚨 Menu item click handler "${name}" is not a function or is undefined. Using a no-op function.`);
-    return () => {
-      // You could add a modal or log here for the user if needed
-      console.error(`Attempted to click unavailable function: ${name}. Please check the corresponding window module.`);
-    };
-  }
-};
 
 const fileSubmenu = [
   {
     label: 'New Patient',
-    click: safeClick(createPatientsWindow, 'createPatientsWindow')
+    click: () => loadView('create/create.html')
   },
   {
     label: 'Generate Report',
-    click: safeClick(createReportWindow, 'createReportWindow')
+    click: () => loadView('report/generate.html')
   },
   { type: 'separator' },
   isMac ? { role: 'close' } : { role: 'quit' }
@@ -139,9 +81,9 @@ const template = [
   {
     label: 'Data Entry',
     submenu: [
-      { label: 'New Patient', click: safeClick(createPatientsWindow, 'createPatientsWindow') },
-      { label: 'Diagnosis', click: safeClick(createDiagnosisWindow, 'createDiagnosisWindow') },
-      { label: 'Ultrasound', click: safeClick(createUltrasoundWindow, 'createUltrasoundWindow') }
+      { label: 'New Patient', click: () => loadView('create/create.html') },
+      { label: 'Diagnosis', click: () => loadView('createDiagnosisWindow') },
+      { label: 'Ultrasound', click: () => loadView('createUltrasoundWindow') }
     ]
   },
 
@@ -152,29 +94,29 @@ const template = [
       {
         label: 'Patient',
         submenu: [
-          { label: 'Update Patient', click: safeClick(createUpdatePatientWindow, 'createUpdatePatientWindow') },
-          { label: 'Delete Patient', click: safeClick(createDelPatientWindow, 'createDelPatientWindow') },
-          { label: 'View Patient', click: safeClick(createViewPatientWindow, 'createViewPatientWindow') },
-          { label: 'View All Patients', click: safeClick(createViewAllPatientWindow, 'createViewAllPatientWindow') }
+          { label: 'Update Patient', click: () => loadView('update/update.html') },
+          { label: 'Delete Patient', click: () => loadView('delete/delpatient.html') },
+          { label: 'View Patient', click: () => loadView('view_forms/view.html') },
+          { label: 'View All Patients', click: () => loadView('view_forms/viewAll.html') }
         ]
       },
       {
         label: 'Diagnosis',
         submenu: [
-          { label: 'Create Diagnosis', click: safeClick(createDiagnosisWindow, 'createDiagnosisWindow') },
-         { label: 'Update Diagnosis', click: safeClick(updateDiagnosisWindow, 'updateDiagnosisWindow') },
-        { label: 'View Diagnosis', click: safeClick(createViewDiagnosisWindow, 'createViewDiagnosisWindow') },
-        { label: 'Delete Diagnosis', click: safeClick(deleteDiagnosisWindow, 'deleteDiagnosisWindow') }
+          { label: 'Create Diagnosis', click: () => loadView('create/diagnosis.html') },
+          { label: 'Update Diagnosis', click: () => loadView('update/diagnosis.html') },
+          { label: 'View Diagnosis', click: () => loadView('view/diagnosis.html') },
+          { label: 'Delete Diagnosis', click: () => loadView('delete/diagnosis.html') }
 
         ]
       },
       {
         label: 'Ultrasound',
         submenu: [
-          { label: 'Create Ultrasound', click: safeClick(createUltrasoundWindow, 'createUltrasoundWindow') },
-          { label: 'Update Ultrasound', click: safeClick(updateUltrasoundWindow, 'updateUltrasoundWindow') },
-          { label: 'View Ultrasound', click: safeClick(createViewUltrasoundWindow, 'createViewUltrasoundWindow') },
-          { label: 'Delete Ultrasound', click: safeClick(deleteUltrasoundWindow, 'deleteUltrasoundWindow') }
+          { label: 'Create Ultrasound', click: () => loadView('create/ultrasound.html') },
+          { label: 'Update Ultrasound', click: () => loadView('update/ultrasound.html') },
+          { label: 'View Ultrasound', click: () => loadView('view/ultrasound.html') },
+          { label: 'Delete Ultrasound', click: () => loadView('delete/ultrasound.html') }
         ]
       }
     ]

@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Early Pregnancy Detection System</title>
+    
+     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     Google Fonts 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #f43f5e;
+            --primary-hover: #e11d48;
+            --secondary-color: #ec4899;
+            --purple-color: #7c3aed;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-dark: #111827;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Menu Bar */
+        .custom-menu-bar {
+            background-color: #374151;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 1040;
+        }
+
+        .menu-item {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.15s ease;
+        }
+
+        .menu-item:hover {
+            background-color: #4b5563;
+        }
+
+        .dropdown-menu-custom {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            color: #374151;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            min-width: 180px;
+            z-index: 1050;
+            display: none;
+        }
+
+        .menu-item:hover .dropdown-menu-custom {
+            display: block;
+        }
+
+        .dropdown-item-custom {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        .dropdown-item-custom:hover {
+            background-color: #f3f4f6;
+        }
+
+        .submenu {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            margin-left: 0.5rem;
+        }
+
+        /* Main Navigation */
+        .main-navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 42px;
+            width: 100%;
+            z-index: 1030;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link-custom {
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.2s ease;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link-custom:hover {
+            color: var(--text-dark);
+        }
+
+        .theme-toggle {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding-top: 8rem;
+            padding-bottom: 4rem;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-bg-1 {
+            top: 5rem;
+            left: 2rem;
+            width: 18rem;
+            height: 18rem;
+            background: linear-gradient(135deg, #f9a8d4, #ec4899);
+            animation-delay: 0s;
+        }
+
+        .hero-bg-2 {
+            bottom: 5rem;
+            right: 2rem;
+            width: 18rem;
+            height: 18rem;
+            background: linear-gradient(135deg, #c084fc, #ec4899);
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #10b981;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.3);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary-custom:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: var(--text-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.875rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 10;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 32rem;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 1rem;
+            opacity: 0.2;
+            animation: pulse 4s infinite;
+        }
+
+        .floating-1 {
+            top: -1.5rem;
+            right: -1.5rem;
+            width: 6rem;
+            height: 6rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .floating-2 {
+            bottom: -1.5rem;
+            left: -1.5rem;
+            width: 8rem;
+            height: 8rem;
+            background: linear-gradient(135deg, var(--purple-color), var(--secondary-color));
+            border-radius: 50%;
+            animation-delay: 1s;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: #fef2f2;
+            color: #dc2626;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            max-width: 48rem;
+            margin: 0 auto 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-icon-1 {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-icon-2 {
+            background: linear-gradient(135deg, var(--purple-color), #6366f1);
+        }
+
+        .feature-icon-3 {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-link {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .feature-link:hover {
+            color: var(--primary-hover);
+        }
+
+        .feature-link svg {
+            transition: transform 0.2s ease;
+        }
+
+        .feature-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Additional Features */
+        .mini-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .mini-feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 0.75rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .mini-feature:hover {
+            background: #f3f4f6;
+        }
+
+        .mini-feature-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .mini-feature-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .mini-feature-description {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--purple-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.2) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(255,255,255,0.1) 2%, transparent 0%);
+            background-size: 100px 100px;
+            opacity: 0.2;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-highlight {
+            color: #fbbf24;
+        }
+
+        .cta-description {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 48rem;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn-white-custom {
+            background: white;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .btn-white-custom:hover {
+            background: #f9fafb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+            color: var(--text-dark);
+        }
+
+        .btn-outline-white {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: var(--text-dark);
+        }
+
+        .cta-features {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-brand-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: #9ca3af;
+            transition: color 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: white;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: var(--bg-dark);
+            color: white;
+        }
+
+        .dark-mode .main-navbar {
+            background: rgba(17, 24, 39, 0.8);
+            border-bottom-color: #374151;
+        }
+
+        .dark-mode .nav-link-custom {
+            color: #d1d5db;
+        }
+
+        .dark-mode .nav-link-custom:hover {
+            color: white;
+        }
+
+        .dark-mode .theme-toggle {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        .dark-mode .theme-toggle:hover {
+            background: #4b5563;
+        }
+
+        .dark-mode .features-section {
+            background: var(--bg-dark);
+        }
+
+        .dark-mode .feature-card {
+            background: #1f2937;
+            border-color: #374151;
+        }
+
+        .dark-mode .feature-title {
+            color: white;
+        }
+
+        .dark-mode .section-title {
+            color: white;
+        }
+
+        .dark-mode .mini-feature {
+            background: #1f2937;
+        }
+
+        .dark-mode .mini-feature:hover {
+            background: #374151;
+        }
+
+        .dark-mode .mini-feature-title {
+            color: white;
+        }
+
+        .dark-mode .dropdown-menu-custom {
+            background: #1f2937;
+            color: #d1d5db;
+        }
+
+        .dark-mode .dropdown-item-custom:hover {
+            background: #374151;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .custom-menu-bar {
+                font-size: 0.75rem;
+                padding: 0.25rem 0;
+            }
+
+            .menu-item {
+                padding: 0.25rem 0.5rem;
+            }
+
+            .main-navbar {
+                top: 36px;
+            }
+
+            .hero-section {
+                padding-top: 6rem;
+                padding-bottom: 3rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-description {
+                font-size: 1rem;
+            }
+
+            .cta-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-bg-1, .hero-bg-2 {
+                width: 12rem;
+                height: 12rem;
+            }
+
+            .floating-1 {
+                width: 4rem;
+                height: 4rem;
+            }
+
+            .floating-2 {
+                width: 6rem;
+                height: 6rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .btn-primary-custom, .btn-secondary-custom {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .mini-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            display: none;
+        }
+
+        .mobile-menu-content {
+            background: white;
+            width: 16rem;
+            height: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.show .mobile-menu-content {
+            transform: translateX(0);
+        }
+
+        .dark-mode .mobile-menu-content {
+            background: #1f2937;
+        }
+    </style>
+</head>
+<body>
+     <!-- Custom Menu Bar  -->
+    <nav class="custom-menu-bar">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-start">
+                <div class="d-flex flex-wrap gap-1">
+                     File 
+                    <div class="menu-item">
+                        <span>File</span>
+                        <div class="dropdown-menu-custom">
+                            <button class="dropdown-item-custom" onclick="openWindow('newPatient')">New Patient</button>
+                            <button class="dropdown-item-custom" onclick="openWindow('report')">Generate Report</button>
+                            <hr class="my-1">
+                            <button class="dropdown-item-custom" onclick="handleAppClose()">Quit</button>
+                        </div>
+                    </div>
+
+                     <!-- Edit  -->
+                    <div class="menu-item">
+                        <span>Edit</span>
+                        <div class="dropdown-menu-custom">
+                            <button class="dropdown-item-custom">Undo</button>
+                            <button class="dropdown-item-custom">Redo</button>
+                            <hr class="my-1">
+                            <button class="dropdown-item-custom">Cut</button>
+                            <button class="dropdown-item-custom">Copy</button>
+                            <button class="dropdown-item-custom">Paste</button>
+                            <button class="dropdown-item-custom">Delete</button>
+                            <button class="dropdown-item-custom">Select All</button>
+                        </div>
+                    </div>
+
+                     <!-- View  -->
+                    <div class="menu-item">
+                        <span>View</span>
+                        <div class="dropdown-menu-custom">
+                            <button class="dropdown-item-custom">Reload</button>
+                            <button class="dropdown-item-custom">Force Reload</button>
+                            <button class="dropdown-item-custom">Toggle DevTools</button>
+                            <hr class="my-1">
+                            <button class="dropdown-item-custom">Zoom In</button>
+                            <button class="dropdown-item-custom">Zoom Out</button>
+                            <button class="dropdown-item-custom">Reset Zoom</button>
+                            <hr class="my-1">
+                            <button class="dropdown-item-custom">Toggle Fullscreen</button>
+                        </div>
+                    </div>
+
+                     <!-- Data Entry  -->
+                    <div class="menu-item">
+                        <span>Data Entry</span>
+                        <div class="dropdown-menu-custom">
+                            <button class="dropdown-item-custom" onclick="openWindow('newPatient')">New Patient</button>
+                            <button class="dropdown-item-custom" onclick="openWindow('diagnosis')">Diagnosis</button>
+                            <button class="dropdown-item-custom" onclick="openWindow('ultrasound')">Ultrasound</button>
+                        </div>
+                    </div>
+
+                     <!-- Manage Records  -->
+                    <div class="menu-item">
+                        <span>Manage Records</span>
+                        <div class="dropdown-menu-custom" style="width: 14rem;">
+                             Patient 
+                            <div class="position-relative">
+                                <span class="dropdown-item-custom d-block">Patient</span>
+                                <div class="dropdown-menu-custom submenu">
+                                    <button class="dropdown-item-custom">Update Patient</button>
+                                    <button class="dropdown-item-custom">Delete Patient</button>
+                                    <button class="dropdown-item-custom">View Patient</button>
+                                    <button class="dropdown-item-custom">View All Patients</button>
+                                </div>
+                            </div>
+
+                             <!-- Diagnosis  -->
+                            <div class="position-relative">
+                                <span class="dropdown-item-custom d-block">Diagnosis</span>
+                                <div class="dropdown-menu-custom submenu">
+                                    <button class="dropdown-item-custom">Create Diagnosis</button>
+                                    <button class="dropdown-item-custom">Update Diagnosis</button>
+                                    <button class="dropdown-item-custom">View Diagnosis</button>
+                                    <button class="dropdown-item-custom">Delete Diagnosis</button>
+                                </div>
+                            </div>
+
+                             <!-- Ultrasound  -->
+                            <div class="position-relative">
+                                <span class="dropdown-item-custom d-block">Ultrasound</span>
+                                <div class="dropdown-menu-custom submenu">
+                                    <button class="dropdown-item-custom">Create Ultrasound</button>
+                                    <button class="dropdown-item-custom">Update Ultrasound</button>
+                                    <button class="dropdown-item-custom">View Ultrasound</button>
+                                    <button class="dropdown-item-custom">Delete Ultrasound</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Window  -->
+                    <div class="menu-item">
+                        <span>Window</span>
+                        <div class="dropdown-menu-custom">
+                            <button class="dropdown-item-custom">Minimize</button>
+                            <button class="dropdown-item-custom">Zoom</button>
+                        </div>
+                    </div>
+
+                     <!-- Help  -->
+                    <div class="menu-item">
+                        <span>Help</span>
+                        <div class="dropdown-menu-custom">
+                            <a href="https://electronjs.org" target="_blank" class="dropdown-item-custom">Learn More</a>
+                            <a href="https://www.electronjs.org/docs" target="_blank" class="dropdown-item-custom">Documentation</a>
+                            <a href="https://github.com/your-repo/issues" target="_blank" class="dropdown-item-custom">Report an Issue</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+     <!-- Main Navigation  -->
+    <nav class="main-navbar" id="navbar">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between py-3">
+                <a href="#" class="navbar-brand-custom">
+                    <div class="brand-icon">
+                        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="brand-text">PregnancyCare Pro</span>
+                </a>
+                
+                <div class="d-flex align-items-center gap-4">
+                    <div class="d-none d-md-flex gap-3">
+                        <a href="#features" class="nav-link-custom">Features</a>
+                        <a href="#about" class="nav-link-custom">About</a>
+                        <a href="#contact" class="nav-link-custom">Contact</a>
+                    </div>
+                    
+                     <!-- Mobile menu button  -->
+                    <button class="btn d-md-none theme-toggle" id="mobile-menu-btn">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <button class="theme-toggle" id="theme-toggle">
+                        <svg id="sun-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="moon-icon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+     <!-- Mobile Menu  -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="p-4 border-bottom">
+                <div class="d-flex align-items-center justify-content-between">
+                    <span class="h5 mb-0 gradient-text">Menu</span>
+                    <button class="btn theme-toggle" id="mobile-menu-close">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="d-flex flex-column gap-3">
+                    <a href="#features" class="nav-link-custom">Features</a>
+                    <a href="#about" class="nav-link-custom">About</a>
+                    <a href="#contact" class="nav-link-custom">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Hero Section  -->
+    <section class="hero-section">
+        <div class="hero-bg-element hero-bg-1"></div>
+        <div class="hero-bg-element hero-bg-2"></div>
+        
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class="animate-fade-in">
+                        <div class="hero-badge">
+                            <span class="status-dot"></span>
+                            Trusted by 500+ Healthcare Providers
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            <span class="gradient-text">Early Pregnancy</span><br>
+                            Detection System
+                        </h1>
+                        
+                        <p class="hero-description">
+                            Advanced AI-powered diagnostic tools for healthcare professionals to provide 
+                            <strong>accurate, early pregnancy detection</strong> 
+                            and comprehensive maternal care.
+                        </p>
+                        
+                        <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+                            <a href="#" class="btn-primary-custom">
+                                Start New Assessment
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="btn-secondary-custom">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a2.5 2.5 0 110 5H9V10z"></path>
+                                </svg>
+                                Watch Demo
+                            </a>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">99.2%</div>
+                                <div class="stat-label">Accuracy Rate</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Support Available</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Healthcare Partners</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 order-1 order-lg-2 text-center mb-5 mb-lg-0">
+                    <div class="hero-image position-relative">
+                        <img src="/placeholder.svg?height=600&width=500" alt="Healthcare Professional" class="img-fluid">
+                        <div class="floating-element floating-1"></div>
+                        <div class="floating-element floating-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Features Section  -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <div class="section-badge">Advanced Healthcare Technology</div>
+                <h2 class="section-title">
+                    <span class="gradient-text">Comprehensive</span> Detection Suite
+                </h2>
+                <p class="section-description">
+                    Our state-of-the-art system combines artificial intelligence with medical expertise 
+                    to deliver unparalleled accuracy in early pregnancy detection and maternal health monitoring.
+                </p>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                 Feature 1 
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-1">
+                            <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">AI-Powered Early Detection</h3>
+                        <p class="feature-description">
+                            Advanced machine learning algorithms analyze multiple biomarkers to detect pregnancy 
+                            signs up to 5 days earlier than traditional methods with 99.2% accuracy.
+                        </p>
+                        <a href="#" class="feature-link">
+                            Learn more
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                 Feature 2 
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-2">
+                            <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Comprehensive Patient Records</h3>
+                        <p class="feature-description">
+                            Secure, HIPAA-compliant digital health records with automated tracking, 
+                            appointment scheduling, and seamless integration with existing EMR systems.
+                        </p>
+                        <a href="#" class="feature-link">
+                            Learn more
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                 Feature 3 
+                <div class="col-md-12 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-3">
+                            <svg width="32" height="32" fill="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Intelligent Risk Assessment</h3>
+                        <p class="feature-description">
+                            Predictive analytics identify potential complications early, enabling proactive 
+                            intervention and personalized care plans for optimal maternal and fetal health.
+                        </p>
+                        <a href="#" class="feature-link">
+                            Learn more
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+             Additional Features 
+            <div class="mini-features">
+                <div class="mini-feature">
+                    <div class="mini-feature-icon" style="background: #fef2f2;">
+                        <svg width="24" height="24" fill="#dc2626" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="mini-feature-title">HIPAA Compliant</h4>
+                    <p class="mini-feature-description">Enterprise-grade security</p>
+                </div>
+                
+                <div class="mini-feature">
+                    <div class="mini-feature-icon" style="background: #f3e8ff;">
+                        <svg width="24" height="24" fill="#7c3aed" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="mini-feature-title">Real-time Results</h4>
+                    <p class="mini-feature-description">Instant analysis & reporting</p>
+                </div>
+                
+                <div class="mini-feature">
+                    <div class="mini-feature-icon" style="background: #ecfdf5;">
+                        <svg width="24" height="24" fill="#10b981" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m5 0h2a2 2 0 002-2V7a2 2 0 00-2-2h-2m-5 4h6m-6 4h6m-7-7V4a1 1 0 011-1h8a1 1 0 011 1v3M9 7v10a1 1 0 001 1h4a1 1 0 001-1V7a1 1 0 00-1-1H10a1 1 0 00-1 1z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="mini-feature-title">EMR Integration</h4>
+                    <p class="mini-feature-description">Seamless workflow integration</p>
+                </div>
+                
+                <div class="mini-feature">
+                    <div class="mini-feature-icon" style="background: #eff6ff;">
+                        <svg width="24" height="24" fill="#3b82f6" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="mini-feature-title">24/7 Support</h4>
+                    <p class="mini-feature-description">Expert technical assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     CTA Section 
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-badge">Join 500+ Healthcare Providers</div>
+                
+                <h2 class="cta-title">
+                    Transform Your Practice with 
+                    <span class="cta-highlight">Advanced Detection</span>
+                </h2>
+                
+                <p class="cta-description">
+                    Experience the future of maternal healthcare with our AI-powered early pregnancy detection system. 
+                    Start providing better care today.
+                </p>
+                
+                <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mb-4">
+                    <a href="#" class="btn-white-custom">
+                        Start Free Trial
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="btn-outline-white">Schedule Demo</a>
+                </div>
+                
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        No setup fees
+                    </div>
+                    <div class="cta-feature">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        30-day free trial
+                    </div>
+                    <div class="cta-feature">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Cancel anytime
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="footer-brand">
+                        <div class="footer-brand-icon">
+                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="footer-brand-text">PregnancyCare Pro</span>
+                    </div>
+                    <p class="footer-description">
+                        Advanced AI-powered pregnancy detection system trusted by healthcare professionals worldwide.
+                    </p>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h4 class="footer-title">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h4 class="footer-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-12 col-md-12 col-lg-2">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">HIPAA Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2024 PregnancyCare Pro. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+     <script src="dist/js/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            sunIcon.style.display = sunIcon.style.display === 'none' ? 'block' : 'none';
+            moonIcon.style.display = moonIcon.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        function openMobileMenu() {
+            mobileMenu.style.display = 'block';
+            mobileMenu.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('show');
+            setTimeout(() => {
+                mobileMenu.style.display = 'none';
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .mini-feature').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Placeholder functions for menu actions
+        function openWindow(type) {
+            console.log(`Opening ${type} window`);
+            // Add your window opening logic here
+        }
+
+        function handleAppClose() {
+            console.log('Closing application');
+            // Add your app closing logic here
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        console.log('Early Pregnancy Detection System loaded successfully!');
+    </script>
+</body>
+</html>

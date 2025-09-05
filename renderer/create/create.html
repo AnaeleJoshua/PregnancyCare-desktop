@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create File</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' data:">
+  <title>New Patient</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
 
@@ -46,13 +48,22 @@
   <div class="sub-button d-flex justify-content-center">
     <button type="submit" class="btn btn-primary w-100">Submit</button>
   </div>
+  
 
 
 </form>
-      
+    <div>
+    <button id="homeBtn">Return to Home</button>
+  </div>  
   </div>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-
+//ipc renderer
+const { ipcRenderer } = require('electron');
+document.getElementById('homeBtn').addEventListener('click', () => {
+  ipcRender
+  er.send('go-home');
+});
     // create patient
  let redirect = (path)=>{
   window.open(path, "_blank")
@@ -70,7 +81,7 @@ createPatientForm.addEventListener("submit", (event)=>{
   const jsonString = JSON.stringify(jsObject)
   console.log(jsonString)
   //send form data to server
-  fetch("http://localhost:3000/api/v1/patient/newPatient", {
+  fetch("http://localhost:3200/api/v1/patient/newPatient", {
     method: "POST",
     headers:{
       'Content-Type': "application/json"

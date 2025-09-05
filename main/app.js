@@ -1,12 +1,15 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { BrowserWindow} = require('electron');
 const path = require('path');
-const menu = require('./menu');
+// const menu = require('./menu');
+// const {loadView } = require('./util')
+let mainWindow=null;
 
-let mainWindow;
-
-function createMainWindow() {
+function createOrGetMainWindow() {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    return mainWindow;
+  }
   mainWindow = new BrowserWindow({
-    title: "Expert System",
+    title: "Pregnancy Care",
     width: 1000,
     height: 800,
     icon: path.join(__dirname, '../renderer/images/icon.png'),
@@ -15,19 +18,13 @@ function createMainWindow() {
     }
   });
 
-  // Use this if loading a local HTML file:
-  mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-// mainWindow.setMenu(null);
-
-  // Use this if running local server:
-  // mainWindow.loadURL("http://localhost:3000");
+ mainWindow.on('closed', () => { mainWindow = null; });
+  return mainWindow;
 }
 
-app.whenReady().then(() => {
-  Menu.setApplicationMenu(menu);
-  createMainWindow();
-});
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
+
+module.exports = {
+  createOrGetMainWindow,
+
+};

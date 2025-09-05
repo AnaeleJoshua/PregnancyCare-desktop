@@ -15,9 +15,9 @@ function createPatientWindow(title, filePath) {
 }
 
 module.exports = {
-  createPatientsWindow: () => createPatientWindow("New Patient", "../../renderer/create/create.html"),
-  createDelPatientWindow: () => createPatientWindow("Delete Patient", "../../renderer/delete/delpatient.html"),
-  createUpdatePatientWindow: () => createPatientWindow("Update Patient", "../../renderer/update/update.html"),
-  createViewPatientWindow: () => createPatientWindow("View Patient", "../../renderer/view_forms/view.html"),
-  createViewAllPatientWindow: () => createPatientWindow("View All Patient", "../../renderer/view_forms/viewAll.html")
+  createNewPatientsWindow: () => createPatientWindow("New Patient", "create/create.html"),
+  createDelPatientWindow: () => createPatientWindow("Delete Patient", "delete/delpatient.html"),
+  createUpdatePatientWindow: () => createPatientWindow("Update Patient", "update/update.html"),
+  createViewPatientWindow: () => createPatientWindow("View Patient", "view_forms/view.html"),
+  createViewAllPatientWindow: () => createPatientWindow("View All Patient", "view_forms/viewAll.html")
 };

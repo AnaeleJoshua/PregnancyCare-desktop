@@ -146,7 +146,7 @@ diagnosisForm.addEventListener("submit", (event)=>{
   event.preventDefault();
 
   let cardNumber = document.querySelector("#patientId").value;
-let apiUrl = `http://localhost:3000/api/v1/patient/diagnosis/${cardNumber}`
+let apiUrl = `http://localhost:3200/api/v1/patient/diagnosis/${cardNumber}`
 
   const formData = new FormData(diagnosisForm);
 
