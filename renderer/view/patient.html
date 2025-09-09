@@ -6,12 +6,17 @@
   <title>View Patient</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
 
 </head>
 <body>
   <div class="container py-5">
-    
-        <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Patient's</span>Details</h1>
+    <h1 class="heading1 d-flex justify-content-center primary"><span class="heading2">Patient's</span>Details</h1>
      <div class="d-flex justify-content-center">
       <table class="table table-hover">
         <thead>
@@ -31,28 +36,9 @@
       
       </table>
 
-
-
-  <script>
-
-      const fetchedData = localStorage.getItem("fetchedData");
-			const apiData = JSON.parse(fetchedData);
-      console.log(apiData)
-
-			const tableBody = document.querySelector(".table-body");
-			const newRow = document.createElement("tr");
-
-			newRow.innerHTML = `
-      <td>${apiData.data.patientId}</td>
-      <td>${apiData.data.firstName}</td>
-			<td>${apiData.data.lastName}</td>
-			<td>${apiData.data.sex}</td>
-			`;
-
-			tableBody.appendChild(newRow)
-
-  </script>
-  
+   <div id="nav-placeholder"></div>
+<script src="../../main/renderer.js"></script>  
+<script src="./views_js/patient.js"></script>
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

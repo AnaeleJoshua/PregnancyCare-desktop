@@ -6,6 +6,12 @@
   <title>View ultrasound </title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
 
 </head>
 <body>
@@ -20,18 +26,18 @@
         </div>
   
         <div class="sub-button px-1">
-          <button type="submit" class="btn btn-primary" onclick="getUltrasound(event)">View</button>
+          <button type="submit" class="btn btn-primary" id="viewUltrasoundBtn">View</button>
         </div> 
       </div>
       
     </form>
-
+  <div id="nav-placeholder"></div>
     </div>
     
       
   </div>
-
-  <script src="../custom_js/main.js"></script>
+<script src="../../main/renderer.js"></script>
+  <script src="./view_forms_js/view-ultrasound.js"></script>
 
 
     <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->

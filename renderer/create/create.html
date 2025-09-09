@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src 'self' data:">
+  <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
   <title>New Patient</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
@@ -52,59 +59,12 @@
 
 
 </form>
-    <div>
-    <button id="homeBtn">Return to Home</button>
-  </div>  
+    <div id="nav-placeholder"></div>
+ 
   </div>
-  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-//ipc renderer
-const { ipcRenderer } = require('electron');
-document.getElementById('homeBtn').addEventListener('click', () => {
-  ipcRender
-  er.send('go-home');
-});
-    // create patient
- let redirect = (path)=>{
-  window.open(path, "_blank")
-}
-const createPatientForm = document.querySelector("#createForm")
-createPatientForm.addEventListener("submit", (event)=>{
-  event.preventDefault();
-
-  const formData = new FormData(createPatientForm);
-
-  const jsObject = {}
-  for (const [key,value] of formData.entries()){
-    jsObject[key] = value
-  }
-  const jsonString = JSON.stringify(jsObject)
-  console.log(jsonString)
-  //send form data to server
-  fetch("http://localhost:3200/api/v1/patient/newPatient", {
-    method: "POST",
-    headers:{
-      'Content-Type': "application/json"
-    },
-    body: jsonString
-  })
-  .then(res=>res.json())
-  .then(data=>{
-    console.log(data)
-    localStorage.setItem("fetchedData", JSON.stringify(data))
-    redirect("../view/createPatientView.html");
-  })
-  .catch(error=>console.error("error occured while fetching data: ", error))
-
-})
-  </script>
-
-  
-
-   
-
-  
-  <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
-  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
+   <script src="../../main/renderer.js"></script>
+   <script src="./create_js/create.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>
 </html>

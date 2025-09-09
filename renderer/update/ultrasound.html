@@ -6,6 +6,13 @@
   <title>Update Ultrasound</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+  <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
+
 </head>
 
 
@@ -44,57 +51,10 @@
         <button class="btn btn-primary w-100" type="submit">Submit</button>
       </div>
     </form>
+      <div id="nav-placeholder"></div>
   </div>
-
-  <script>
-
-        // Update Ultrasound data
-    let redirect = (path)=>{
-      window.open(path, "_blank")
-    }
-    const updateUltrasound = document.querySelector("#updateUltrasound")
-    updateUltrasound.addEventListener("submit", (event)=>{
-      event.preventDefault();
-
-      let cardNumber = document.querySelector("#patientId").value;
-      let apiUrl = `http://localhost:3000/api/v1/patient/ultrasound/update/${cardNumber}`
-
-      const formData = new FormData(updateUltrasound);
-
-      const jsObject = {}
-      for (const [key,value] of formData.entries()){
-        jsObject[key] = value
-      }
-      const jsonString = JSON.stringify(jsObject)
-      console.log(jsonString)
-      //send form data to server
-      fetch(apiUrl, {
-        method: "PUT",
-        headers:{
-          'Content-Type': "application/json"
-        },
-        body: jsonString
-      })
-      .then(res=>res.json())
-      .then(data=>{
-        console.log(data)
-
-        if(data.status == false){
-            alert("Oops! Patient does not have ultrasound data to update")
-          } else if(data.status === true){
-            alert(data.data)
-          } else{
-            alert(data.message)
-          }
-
-      })
-      .catch(error=>console.error("error occured while fetching data: ", error))
-
-    })
-  </script>
-
-
-  
+<script src="../../main/renderer.js"></script>
+ <script src="./update-js/ultrasound.js"></script>
   <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

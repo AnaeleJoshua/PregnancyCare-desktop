@@ -6,6 +6,12 @@
   <title>Generate Report</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
 
 </head>
 <body>
@@ -31,7 +37,7 @@
       </div>
 
       <div class="sub-button d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary w-100" onclick="getReport(event)">Generate</button>
+        <button type="submit" class="btn btn-primary w-100" id="generateReportButton">Generate</button>
       </div>
 
       <!-- <div class="home-message d-flex justify-content-center py-2">
@@ -39,9 +45,10 @@
       </div> -->
       
     </form>
+       <div id="nav-placeholder"></div>
   </div>
-  <script src="../custom_js/main.js"></script>
-
+  <script src="./create_js/report.js"></script>
+<script src="../../main/renderer.js"></script>
     <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

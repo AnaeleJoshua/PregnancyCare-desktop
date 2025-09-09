@@ -83,13 +83,18 @@ select {
   margin-top: 10rem;
  
 }
+/* #navBtn {
+  background-color: red;
+  display: flex;
+  flex-direction: row; */
+/* } */
 
 #homeBtn{
   margin: 1.5rem;
   padding:0.5rem;
   text-align: center;
   border-radius: 10%;
-  background:#0033;
+  background:blue;
   color:#fff;
   font-size: small;
 

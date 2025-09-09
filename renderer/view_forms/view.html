@@ -6,6 +6,12 @@
   <title>View Patient</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
 
 </head>
 <body>
@@ -18,20 +24,20 @@
         <div class="mb-3">
           <input type="number" placeholder="Patient's card number" class="form-control" id="patientId" required>
         </div>
-  
-        <div class="sub-but3ton px-1">
-          <button type="submit" class="btn btn-primary" onclick="getPatient(event)">View</button>
+
+        <div class="sub-button px-1">
+          <button type="submit" class="btn btn-primary" id="viewPatientBtn">View</button>
         </div> 
       </div>
       
     </form>
-
+  
     </div>
-    
+    <div id="nav-placeholder"></div>
       
   </div>
-  <script src="../custom_js/main.js"></script>
-
+  <script src="./view_forms_js/view-patient.js"></script>
+<script src="../../main/renderer.js"></script>
 
     <!-- <script src="../node_modules/jquery/dist/jquery.min.js"></script> -->
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

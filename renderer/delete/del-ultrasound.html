@@ -6,6 +6,12 @@
   <title>Delete ultrasound</title>
   <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="../custom_css/style.css" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self'; 
+               style-src 'self' 'unsafe-inline'; 
+               img-src 'self' data:; 
+               connect-src 'self' http://localhost:3200;">
 
 </head>
 <body>
@@ -25,58 +31,13 @@
       </div>
       
     </form>
-
+       <div id="nav-placeholder"></div>
     </div>
     
       
   </div>
-
-  <script>
-    // Delete Ultrasound
-const deleteUltrasound = document.querySelector("#deleteUltrasound")
-deleteUltrasound.addEventListener("submit", (event)=>{
- event.preventDefault();
- let cardNumber = document.querySelector("#patientId").value;
-let apiUrl = `http://localhost:3000/api/v1/patient/ultrasound/delete/${cardNumber}`
-
- 
-
-
- const formData = new FormData(deleteUltrasound);
-
- const jsObject = {}
- for (const [key,value] of formData.entries()){
-   jsObject[key] = value
- }
- const jsonString = JSON.stringify(jsObject)
- console.log(jsonString)
-
- //send form data to server
- fetch(apiUrl, {
-   method: "DELETE",
-   headers:{
-     'Content-Type': "application/json"
-   },
-   body: jsonString
- })
- .then(res=>res.json())
- .then(data=>{
-   console.log(data)
-   if(data.error === "unauthorized"){
-    alert(data.message)
-   } else if(data.status === "unauthorized"){
-     alert(data.message) 
-   }else{
-    alert(data.data)
-   }
-   
- })
- .catch(error=>console.error("error occured while fetching data: ", error))
-
-})
- </script>
-
-
+<script src="../../main/renderer.js"></script>
+  <script src="./delete_js/ultrasound.js"></script>
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

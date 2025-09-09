@@ -14,7 +14,9 @@ function createOrGetMainWindow() {
     height: 800,
     icon: path.join(__dirname, '../renderer/images/icon.png'),
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false,
+        contextIsolation: true, // Enable isolation
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 

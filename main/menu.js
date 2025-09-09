@@ -11,7 +11,7 @@ const fileSubmenu = [
   },
   {
     label: 'Generate Report',
-    click: () => loadView('report/generate.html')
+    click: () => loadView('create/report.html')
   },
   { type: 'separator' },
   isMac ? { role: 'close' } : { role: 'quit' }
@@ -82,8 +82,8 @@ const template = [
     label: 'Data Entry',
     submenu: [
       { label: 'New Patient', click: () => loadView('create/create.html') },
-      { label: 'Diagnosis', click: () => loadView('createDiagnosisWindow') },
-      { label: 'Ultrasound', click: () => loadView('createUltrasoundWindow') }
+      { label: 'Diagnosis', click: () => loadView('create/diagnosis.html') },
+      { label: 'Ultrasound', click: () => loadView('create/ultrasound.html') }
     ]
   },
 
@@ -94,7 +94,7 @@ const template = [
       {
         label: 'Patient',
         submenu: [
-          { label: 'Update Patient', click: () => loadView('update/update.html') },
+          { label: 'Update Patient', click: () => loadView('update/patient.html') },
           { label: 'Delete Patient', click: () => loadView('delete/delpatient.html') },
           { label: 'View Patient', click: () => loadView('view_forms/view.html') },
           { label: 'View All Patients', click: () => loadView('view_forms/viewAll.html') }
@@ -105,8 +105,8 @@ const template = [
         submenu: [
           { label: 'Create Diagnosis', click: () => loadView('create/diagnosis.html') },
           { label: 'Update Diagnosis', click: () => loadView('update/diagnosis.html') },
-          { label: 'View Diagnosis', click: () => loadView('view/diagnosis.html') },
-          { label: 'Delete Diagnosis', click: () => loadView('delete/diagnosis.html') }
+          { label: 'View Diagnosis', click: () => loadView('view_forms/view-diagnosis.html') },
+          { label: 'Delete Diagnosis', click: () => loadView('delete/del-diagnosis.html') }
 
         ]
       },
@@ -115,8 +115,8 @@ const template = [
         submenu: [
           { label: 'Create Ultrasound', click: () => loadView('create/ultrasound.html') },
           { label: 'Update Ultrasound', click: () => loadView('update/ultrasound.html') },
-          { label: 'View Ultrasound', click: () => loadView('view/ultrasound.html') },
-          { label: 'Delete Ultrasound', click: () => loadView('delete/ultrasound.html') }
+          { label: 'View Ultrasound', click: () => loadView('view_forms/view-ultrasound.html') },
+          { label: 'Delete Ultrasound', click: () => loadView('delete/del-ultrasound.html') }
         ]
       }
     ]
