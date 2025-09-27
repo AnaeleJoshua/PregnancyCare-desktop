@@ -1,4 +1,5 @@
 # PregnancyCare-desktop
+# ![Project Screenshot](11.09.2025_17.42.49_REC.png)
 
 PregnancyCare-desktop is an Electron-based desktop application for managing patient records, diagnoses, reports, and ultrasounds in a pregnancy care setting. It features a modular structure, modern UI with Bootstrap and custom CSS, and supports CRUD operations for patients and medical data.
 
