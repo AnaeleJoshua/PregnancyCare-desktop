@@ -1,7 +1,7 @@
 
       const fetchedData = localStorage.getItem("fetchedData");
 			const apiData = JSON.parse(fetchedData);
-      console.log(apiData)
+      console.log('api data',apiData)
 
 			const tableBody = document.querySelector(".table-body");
 

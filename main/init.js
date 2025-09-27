@@ -8,7 +8,7 @@ let server;
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(menu);
-  loadView("/index.html");
+  loadView("/index4.html");
 });
 ipcMain.on('navigate-back', () => {
   const mainWindow = createOrGetMainWindow()

@@ -15,7 +15,7 @@ const getDiagnosis = (event)=>{
   }else{
     localStorage.setItem("fetchedData", JSON.stringify(data))
     console.log(JSON.stringify(data))
-    redirect("../view/diagnosis.html");
+    redirect("../../view/diagnosis.html");
 
   }
   
