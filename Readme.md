@@ -1,15 +1,18 @@
 # PregnancyCare-desktop
 # ![Project Screenshot](11.09.2025_17.42.49_REC.png)
 
-PregnancyCare-desktop is an Electron-based desktop application designed to streamline the management of patient records, diagnoses, reports, and ultrasounds in a pregnancy care setting. The project demonstrates modular architecture, robust backend integration, and a modern UI, making it a strong showcase for backend engineering and full-stack development skills.
+PregnancyCare-desktop is an Electron-based desktop application specifically designed for managing pregnant patient records, diagnoses, reports, and ultrasounds in a clinical setting. The project demonstrates modular architecture, robust backend integration, and a modern UI, making it a strong showcase for backend engineering and full-stack development skills.
 
 ---
 
 ## What Problem Does This Project Solve?
 
-Healthcare providers often struggle with fragmented patient data and inefficient workflows. PregnancyCare-desktop solves this by providing a unified platform for managing patient information, medical records, and diagnostic data. It enables quick CRUD operations, secure data handling, and seamless navigation, improving both clinical efficiency and patient outcomes.
-
-**Additionally, PregnancyCare-desktop helps estimate conception and delivery dates, supporting clinicians in providing timely and accurate care for expectant mothers.**
+Healthcare providers often struggle with fragmented data and inefficient workflows when managing pregnant patients. PregnancyCare-desktop solves this by providing a unified platform for:
+- Managing patient information and medical records
+- Tracking pregnancy-specific data, including conception and delivery date estimation
+- Handling diagnoses, ultrasounds, and reports
+- Enabling quick CRUD operations, secure data handling, and seamless navigation
+This improves clinical efficiency, data accuracy, and patient outcomes for expectant mothers.
 
 ---
 
@@ -57,7 +60,7 @@ Healthcare providers often struggle with fragmented patient data and inefficient
 
 ## Features
 
-- Patient management: create, update, delete, and view patient records
+- Patient management: create, update, delete, and view pregnant patient records
 - Diagnosis management: create, update, delete, and view diagnoses
 - Ultrasound management: create, update, delete, and view ultrasound records
 - Report generation and viewing
@@ -141,7 +144,7 @@ npm run dev
 - Use the menu to navigate between patient, diagnosis, ultrasound, and report sections.
 - Create, update, delete, and view records using the provided forms.
 - Return to the home page or previous page using navigation buttons (IPC-based).
-- Estimate conception and delivery dates for patients.
+- Estimate conception and delivery dates for pregnant patients.
 
 ---
 
@@ -187,3 +190,5 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 MIT
+
+---
